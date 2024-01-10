@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List,java.util.Map" %>
+<%@ page import="java.util.List, guest_book_02.model.vo.GuestBookVo" %>
 <%
-	List<Map<String,Object>> list = (List<Map<String,Object>>)request.getAttribute("books");
-	//리스트맵을 받아옴
+	List<GuestBookVo> list = (List<GuestBookVo>)request.getAttribute("books");
+	// 	리스트vo를 받아올거임
+	// 이름이 books인 정보 중에 listvo를 쓸거임(?) =>형변환이 필요함 
+	//setattribute로 books란 이름으로 보낸게 GuestBookVo 구나
 %>
 <!DOCTYPE html>
 <html>
@@ -16,7 +18,7 @@
 </style>
 </head>
 <body>
-<!-- 	모델2 방식 -->
+<!-- 	MVC 방식 -->
 	<h4 class="g-top">구디 방명록</h4>
 	<div class="top-img">
 	</div>
@@ -32,16 +34,19 @@
 				</li>
 			</ul>
 			<p class="btn btn-lg" onclick="document.getElementById('frm').submit();">방명록 남기기</p>
+<!-- 						id가 frm인 ..  -->
 		</div>
 	</form>
 	<div class="guestbook list" style="display: block;">
 		<%if(list != null && list.isEmpty()==false){
-			for(Map<String,Object> map : list){%>
+							//!list.imEmpty() 와 같은 것
+			//null 체크 : null, isEmpty : 비어있는지 확인(껍데기만 있는지)    //list.isEmpty()==false : list가 차 있는지
+			for(GuestBookVo vo : list){%>
 		<ul class="cont">
 			<li>
-				<p class="name"><%=map.get("author") %></p>
-				<p class="date"><%=map.get("date") %></p>
-				<p class="memo"><%=map.get("content")%></p>
+				<p class="name"><%=vo.getAuthor() %></p>
+				<p class="date"><%=vo.getReg_date() %></p>
+				<p class="memo"><%=vo.getContent() %></p>
 			</li>
 		</ul>
 		<%}
