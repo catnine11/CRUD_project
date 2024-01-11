@@ -7,7 +7,11 @@
 		and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/root-context.xml
+			/WEB-INF/spring/jdbc-context.xml
+		</param-value>
+				
 	</context-param>
 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -34,7 +38,8 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	<filter>	<!-- 필터 설정 -->
+	<!-- 필터 설정 -->
+	<filter>	
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
 		</filter-class>
@@ -47,7 +52,8 @@
 			<param-value>true</param-value>
 		</init-param>
 	</filter>
-	<filter-mapping>	<!-- 필터링 하라고 시키는 부분 -->
+	<!-- 필터링 하라고 시키는 부분 -->
+	<filter-mapping>	
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
