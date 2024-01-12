@@ -8,6 +8,8 @@ public class GuestBookVo {
 	private String author;
 	private String content;
 	private Date reg_date;
+//	private Date reg_date = new Date(); //시간 부여하는걸 maria DB에서 하지 자바로 받아오지 않음
+//	(자바로 받으면 form태그가 서버에게 정보를 넘겨올 때의 시간이 찍히는데 우리가 관리하고 싶은건 데이터베이스에 정보를 등록하는 시간이기 때문에 db로)
 	
 	public GuestBookVo() {
 		super();

@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,13 +19,16 @@ public class GuestBookDao {
 	
 	@Autowired
 	JdbcTemplate jdbcTemplate; //jdbc-context에 빈으로 등록했기 때문
+	
+	private static final Logger logger = LoggerFactory.getLogger(GuestBookDao.class);
 
 	public List<GuestBookVo> selectBookAll(){
+		logger.info("[GuestBookDao] selectBookAll()");
+		
 		//1. list만들고
 		//2. 쿼리 날리고
 		//3. 연결
 		//4. vo 리턴 => 서비스가 받아서 컨트롤러에 전달해줌
-		
 		List<GuestBookVo> list = new ArrayList<GuestBookVo>();
 		try {
 			String sql = "SELECT * FROM content_list";
@@ -45,8 +50,26 @@ public class GuestBookDao {
 		return list;
 	}
 	
-	public int insertGuestBook() {
-		String sql = "INSERT INTO content_list(g_author, g_content, g_reg_date) VALUES('남가람','테스트 내용', NOW())";
+	//requestParam
+//	public int insertGuestBook() {
+//		String sql = "INSERT INTO content_list(g_author, g_content, g_reg_date) VALUES('남가람','테스트 내용', NOW())";
+//		
+//		int result = -1; //초기값 설정
+//		try {
+//			result = jdbcTemplate.update(sql);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return result;
+//		//결과가 잘 됐으면 update된 값이(result>1), 안되면 -1 리턴됨
+//	}
+	
+	//vo
+	public int insertGuestBook(GuestBookVo vo) {
+		logger.info("[GuestBookDao] insertGuestBook()");
+		String sql = "INSERT INTO content_list(g_author, g_content, g_reg_date) "
+				+ "VALUES('"+vo.getAuthor()+"','"+vo.getContent()+"', NOW())";
+						//글자로 된 부분대신 ""을 써 준 후 ++ 적어주고 가운데 getter를 넣어준다
 		
 		int result = -1; //초기값 설정
 		try {
